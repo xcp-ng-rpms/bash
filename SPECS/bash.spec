@@ -6,7 +6,7 @@
 Version: %{baseversion}%{patchleveltag}
 Name: bash
 Summary: The GNU Bourne Again shell
-Release: 30%{?dist}
+Release: 30.1%{?dist}
 Group: System Environment/Shells
 License: GPLv3+
 Url: http://www.gnu.org/software/bash
@@ -198,9 +198,13 @@ Patch153: bash-4.3-wshouldquote.patch
 BuildRequires: texinfo bison
 BuildRequires: ncurses-devel
 BuildRequires: autoconf, gettext
+BuildRequires: gcc
 Conflicts: filesystem < 3
 Provides: /bin/sh
 Provides: /bin/bash
+
+# Work around to force proper bash install to run future scriptlet
+Requires(pre): filesystem, glibc, ncurses-compat-libs
 
 %description
 The GNU Bourne Again shell (Bash) is a shell or command language
@@ -223,109 +227,109 @@ This package contains documentation files for %{name}.
 %setup -q -n %{name}-%{baseversion}
 
 # Official upstream patches
-%patch001 -p0 -b .001
-%patch002 -p0 -b .002
-%patch003 -p0 -b .003
-%patch004 -p0 -b .004
-%patch005 -p0 -b .005
-%patch006 -p0 -b .006
-%patch007 -p0 -b .007
-%patch008 -p0 -b .008
-%patch009 -p0 -b .009
-%patch010 -p0 -b .010
-%patch011 -p0 -b .011
-%patch012 -p0 -b .012
-%patch013 -p0 -b .013
-%patch014 -p0 -b .014
-%patch015 -p0 -b .015
-%patch016 -p0 -b .016
-%patch017 -p0 -b .017
-%patch018 -p0 -b .018
-%patch019 -p0 -b .019
-%patch020 -p0 -b .020
-%patch021 -p0 -b .021
-%patch022 -p0 -b .022
-%patch023 -p0 -b .023
-%patch024 -p0 -b .024
-%patch025 -p0 -b .025
-%patch026 -p0 -b .026
-%patch027 -p0 -b .027
-%patch028 -p0 -b .028
-%patch029 -p0 -b .029
-%patch030 -p0 -b .030
-%patch031 -p0 -b .031
-%patch032 -p0 -b .032
-%patch033 -p0 -b .033
-%patch034 -p0 -b .034
-%patch035 -p0 -b .035
-%patch036 -p0 -b .036
-%patch037 -p0 -b .037
-%patch038 -p0 -b .038
-%patch039 -p0 -b .039
-%patch040 -p0 -b .040
-%patch041 -p0 -b .041
-%patch042 -p0 -b .042
-%patch043 -p0 -b .043
-%patch044 -p0 -b .044
-%patch045 -p0 -b .045
-%patch046 -p0 -b .046
+%patch -P001 -p0 -b .001
+%patch -P002 -p0 -b .002
+%patch -P003 -p0 -b .003
+%patch -P004 -p0 -b .004
+%patch -P005 -p0 -b .005
+%patch -P006 -p0 -b .006
+%patch -P007 -p0 -b .007
+%patch -P008 -p0 -b .008
+%patch -P009 -p0 -b .009
+%patch -P010 -p0 -b .010
+%patch -P011 -p0 -b .011
+%patch -P012 -p0 -b .012
+%patch -P013 -p0 -b .013
+%patch -P014 -p0 -b .014
+%patch -P015 -p0 -b .015
+%patch -P016 -p0 -b .016
+%patch -P017 -p0 -b .017
+%patch -P018 -p0 -b .018
+%patch -P019 -p0 -b .019
+%patch -P020 -p0 -b .020
+%patch -P021 -p0 -b .021
+%patch -P022 -p0 -b .022
+%patch -P023 -p0 -b .023
+%patch -P024 -p0 -b .024
+%patch -P025 -p0 -b .025
+%patch -P026 -p0 -b .026
+%patch -P027 -p0 -b .027
+%patch -P028 -p0 -b .028
+%patch -P029 -p0 -b .029
+%patch -P030 -p0 -b .030
+%patch -P031 -p0 -b .031
+%patch -P032 -p0 -b .032
+%patch -P033 -p0 -b .033
+%patch -P034 -p0 -b .034
+%patch -P035 -p0 -b .035
+%patch -P036 -p0 -b .036
+%patch -P037 -p0 -b .037
+%patch -P038 -p0 -b .038
+%patch -P039 -p0 -b .039
+%patch -P040 -p0 -b .040
+%patch -P041 -p0 -b .041
+%patch -P042 -p0 -b .042
+%patch -P043 -p0 -b .043
+%patch -P044 -p0 -b .044
+%patch -P045 -p0 -b .045
+%patch -P046 -p0 -b .046
 
 # Other patches
-%patch101 -p1 -b .security
-%patch102 -p1 -b .paths
-%patch103 -p1 -b .profile
-%patch104 -p1 -b .interpreter
-%patch105 -p1 -b .debuginfo
-%patch106 -p1 -b .manso
-%patch107 -p1 -b .pgrp_sync
-%patch108 -p1 -b .readline_oom
-%patch109 -p1 -b .xcc
-%patch110 -p1 -b .audit
-%patch111 -p1 -b .ssh_source_bash
-%patch112 -p1 -b .bashbug
-%patch113 -p1 -b .infotags
-%patch114 -p1 -b .requires
-%patch115 -p1 -b .setlocale
-%patch116 -p1 -b .tty_tests
-%patch117 -p1 -b .nobits
-%patch118 -p1 -b .examples
-%patch119 -p1 -b .broken_pipe
-%patch120 -p1 -b .logout
-%patch121 -p1 -b .coverity
-%patch122 -p1 -b .defer_sigchld_trap
-%patch123 -p1
-%patch124 -p1 -b .signal
-%patch125 -p1 -b .size_type
-%patch126 -p1 -b .missing_closes
-%patch127 -p1 -b .trap
-%patch128 -p1 -b .ulimit
-%patch129 -p1 -b .expand
-%patch130 -p1 -b .noecho
-%patch131 -p1 -b .manpage
-%patch132 -p1 -b .hang
-%patch133 -p1 -b .man
-%patch134 -p0 -b .inject
-%patch135 -p0 -b .7169-0
-%patch136 -p0 -b .7169-1
-%patch137 -p0 -b .7169-2
-%patch052 -p0 -b .052
-%patch053 -p0 -b .053
-%patch138 -p1 -b .double-alloc
-%patch139 -p1 -b .temp-env
-%patch140 -p1 -b .check-debugger
-%patch141 -p1 -b .command-subst
-%patch142 -p0 -b .export
-%patch143 -p1 -b .fix-shopt-lastpipe-mode
-%patch144 -p1 -b .trapped-signals
-%patch145 -p1 -b .param-expansion
-%patch146 -p1 -b .pipeline-pgrp
-%patch147 -p1 -b .cd-e
-%patch148 -p1 -b .leak-compound
-%patch149 -p1 -b .cve-2016-0634
-%patch150 -p1 -b .cve-2016-7543
-%patch151 -p1 -b .cve-2016-9401
-%patch152 -p1 -b .pipefd-leak
-%patch153 -p1 -b .wshouldquote
+%patch -P101 -p1 -b .security
+%patch -P102 -p1 -b .paths
+%patch -P103 -p1 -b .profile
+%patch -P104 -p1 -b .interpreter
+%patch -P105 -p1 -b .debuginfo
+%patch -P106 -p1 -b .manso
+%patch -P107 -p1 -b .pgrp_sync
+%patch -P108 -p1 -b .readline_oom
+%patch -P109 -p1 -b .xcc
+%patch -P110 -p1 -b .audit
+%patch -P111 -p1 -b .ssh_source_bash
+%patch -P112 -p1 -b .bashbug
+%patch -P113 -p1 -b .infotags
+%patch -P114 -p1 -b .requires
+%patch -P115 -p1 -b .setlocale
+%patch -P116 -p1 -b .tty_tests
+%patch -P117 -p1 -b .nobits
+%patch -P118 -p1 -b .examples
+%patch -P119 -p1 -b .broken_pipe
+%patch -P120 -p1 -b .logout
+%patch -P121 -p1 -b .coverity
+%patch -P122 -p1 -b .defer_sigchld_trap
+%patch -P123 -p1
+%patch -P124 -p1 -b .signal
+%patch -P125 -p1 -b .size_type
+%patch -P126 -p1 -b .missing_closes
+%patch -P127 -p1 -b .trap
+%patch -P128 -p1 -b .ulimit
+%patch -P129 -p1 -b .expand
+%patch -P130 -p1 -b .noecho
+%patch -P131 -p1 -b .manpage
+%patch -P132 -p1 -b .hang
+%patch -P133 -p1 -b .man
+%patch -P134 -p0 -b .inject
+%patch -P135 -p0 -b .7169-0
+%patch -P136 -p0 -b .7169-1
+%patch -P137 -p0 -b .7169-2
+%patch -P052 -p0 -b .052
+%patch -P053 -p0 -b .053
+%patch -P138 -p1 -b .double-alloc
+%patch -P139 -p1 -b .temp-env
+%patch -P140 -p1 -b .check-debugger
+%patch -P141 -p1 -b .command-subst
+%patch -P142 -p0 -b .export
+%patch -P143 -p1 -b .fix-shopt-lastpipe-mode
+%patch -P144 -p1 -b .trapped-signals
+%patch -P145 -p1 -b .param-expansion
+%patch -P146 -p1 -b .pipeline-pgrp
+%patch -P147 -p1 -b .cd-e
+%patch -P148 -p1 -b .leak-compound
+%patch -P149 -p1 -b .cve-2016-0634
+%patch -P150 -p1 -b .cve-2016-7543
+%patch -P151 -p1 -b .cve-2016-9401
+%patch -P152 -p1 -b .pipefd-leak
+%patch -P153 -p1 -b .wshouldquote
 
 echo %{version} > _distribution
 echo %{release} > _patchlevel
@@ -518,6 +522,11 @@ end
 #%doc doc/*.ps doc/*.0 doc/*.html doc/article.txt
 
 %changelog
+* Tue Jul 07 2026 Philippe Coval <philippe.coval@vates.tech> - 4.2.46-30.1
+- Workaround to install dependencies before running rpm scriptlets
+- Fix the %%patch macro in the specfile to be compatible with rpm 4.20 and above
+- Add gcc to BuildRequires:
+
 * Mon Sep 25 2017 Siteshwar Vashisht <svashisht@redhat.com> - 4.2.46-30
 - Check for multibyte characters in commands
   Resolves: #1487615
