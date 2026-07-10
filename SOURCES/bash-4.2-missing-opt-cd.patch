@@ -1,0 +1,12 @@
+diff -up bash-4.2/builtins/cd.def.old bash-4.2/builtins/cd.def
+--- bash-4.2/builtins/cd.def.old	2015-12-09 11:47:59.113106805 +0100
++++ bash-4.2/builtins/cd.def	2015-12-09 11:48:13.702060840 +0100
+@@ -200,7 +200,7 @@ cd_builtin (list)
+   eflag = 0;
+   no_symlinks = no_symbolic_links;
+   reset_internal_getopt ();
+-  while ((opt = internal_getopt (list, "LP")) != -1)
++  while ((opt = internal_getopt (list, "LPe")) != -1)
+     {
+       switch (opt)
+ 	{
